@@ -24,11 +24,22 @@ fn read_all_lines(filename: &str) -> io::Result<()> {
         ids.push(line);
     }
 
+    let mut same = "".to_string();
     for i in 0..ids.len() {
         for j in (i+1)..ids.len() {
-            println!("Compairing {} and {}:\t {}",ids[i],ids[j],distance(&ids[i],&ids[j]));
+            let mut d = distance(&ids[i],&ids[j]);
+            println!("Compairing {} and {}:\t {}",ids[i],ids[j],d);
+            if(d == 1){
+                println!("Found it!");
+                for (ic,jc) in ids[i].chars().zip(ids[j].chars()){
+                    if ic == jc {
+                        same.push(ic);                        
+                    }
+                }    
+            }
         }        
     }
+    println!("Same string is: {}",same);
 
     Ok(())
 }
