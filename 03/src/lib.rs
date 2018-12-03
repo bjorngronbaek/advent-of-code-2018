@@ -20,22 +20,22 @@ impl Claim{
         }
     }
 
-    pub fn overlaps(self, claim:Claim) -> bool {
+    pub fn overlaps(self, claim:&Claim) -> bool {
         let tl_1 = (self.x,self.y);
         let br_1 = (self.x+self.length,self.y+self.height);
 
         let tl_2 = (claim.x,claim.y);
-        let br_2 = (claim.x+claim,.length,claim.y+claim.height);
+        let br_2 = (claim.x+claim.length,claim.y+claim.height);
 
-        if tl_1.0 > br_2.0 || tl_2.0 > br.0 {
-            false
+        if tl_1.0 > br_2.0 || tl_2.0 > br_1.0 {
+            return false;
         }
 
-        if tl_1.1 < br_2.1 || tl_2.1 > br_2.1 {
-            false
+        if tl_1.1 < br_2.1 || tl_2.1 > br_1.1 {
+            return false;
         }
 
-        true
+        return true;
     }
 }
 

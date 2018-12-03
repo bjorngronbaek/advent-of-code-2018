@@ -15,6 +15,24 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     let claims : Vec<Claim> = read_all_lines(&args[1]).unwrap();
 
+    //find_counts(claims);
+
+    for i in 0..claims.len() {
+        let mut found_overlap = false;
+        for j in (i+1)..claims.len() {
+            let f = &claims[i];
+            let s = &claims[j];
+            if f.overlaps(s){
+                found_overlap = true;
+            }
+        }
+        if !found_overlap{
+            println!("We got it:");
+        }
+    }
+}
+
+fn find_counts(claims: Vec<Claim>) {
     let mut piece = Piece::new(1000,1000);
     for claim in claims {
         piece.claim(&claim);
