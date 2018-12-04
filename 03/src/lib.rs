@@ -74,6 +74,32 @@ impl Piece {
             }
         }
     }
+
+    pub fn unique_claim(&self, claim: &Claim) -> bool {
+        //println!("Investigating id: {}",claim);
+        let mut isunique = true;
+        for dy in 0..claim.height {
+            for dx in 0..claim.length {
+                let xpos = claim.x + dx;
+                let ypos = claim.y + dy;
+
+                let count = self.claim_count[self.get_index(ypos,xpos)];
+                //println!("pos: ({},{}), value: {}",xpos,ypos,count);
+                if count > 1 {
+                    isunique = false;
+                }
+            }
+        }
+
+        isunique
+    }
+}
+
+impl fmt::Display for Claim {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f,"#{} @ {},{}: {}x{}",self.id,self.x,self.y,self.length,self.height);
+        Ok(())
+    }
 }
 
 impl fmt::Display for Piece {
