@@ -1,0 +1,6 @@
+[package]
+name = "aoc-helper"
+version = "0.1.0"
+authors = ["bjorngronbaek <github@gronbaek.net>"]
+
+[dependencies]
