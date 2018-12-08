@@ -4,20 +4,44 @@ use regex::Regex;
 #[cfg(test)]
 mod tests {
 
+    use std::collections::hash_map::DefaultHasher;
+    use std::hash::{Hash, Hasher};
+
     #[test]
     fn test_point_m_distance() {
-        let p1 = ::Point::new(0,0);
-        assert_eq!(0,p1.m_distance(::Point::new(0,0)));
-        assert_eq!(2,p1.m_distance(::Point::new(1,1)));
-        assert_eq!(4,p1.m_distance(::Point::new(2,2)));
+        let &p1 = ::Point::new(0,0);
+        assert_eq!(0,p1.m_distance(&::Point::new(0,0)));
+        assert_eq!(2,p1.m_distance(&::Point::new(1,1)));
+        assert_eq!(4,p1.m_distance(&::Point::new(2,2)));
 
-        let p2 = ::Point::new(-1,-1);
-        assert_eq!(4,p2.m_distance(::Point::new(1,1)));
-        assert_eq!(0,p2.m_distance(::Point::new(-1,-1)));
-        assert_eq!(2,p2.m_distance(::Point::new(-2,-2)));
+        let &p2 = ::Point::new(-1,-1);
+        assert_eq!(4,p2.m_distance(&::Point::new(1,1)));
+        assert_eq!(0,p2.m_distance(&::Point::new(-1,-1)));
+        assert_eq!(2,p2.m_distance(&::Point::new(-2,-2)));
+    }
+
+    #[test]
+    fn test_hash() {        
+        assert_eq!(calculate_hash(&::Point::new(1,1)),calculate_hash(&::Point::new(1,1)));
+        assert_ne!(calculate_hash(&::Point::new(1,0)),calculate_hash(&::Point::new(0,1)));
+    }
+
+    #[test]
+    fn test_eq() {        
+        assert_eq!(&::Point::new(1,1),&::Point::new(1,1));
+        assert_ne!(&::Point::new(1,0),&::Point::new(0,1));
+    }
+
+    fn calculate_hash<T: Hash>(t: &T) -> u64 {
+        let mut s = DefaultHasher::new();
+        t.hash(&mut s);
+        s.finish()
     }
 }
 
+#[derive(Debug)]
+#[derive(Eq)]
+#[derive(Hash)]
 pub struct Point {
     pub x: i32,
     pub y: i32,
@@ -41,7 +65,7 @@ impl Point {
         }
     }
 
-    pub fn m_distance(&self, p: Point) -> usize {
+    pub fn m_distance(&self, p: &Point) -> usize {
         ((self.x - p.x).abs() + (self.y - p.y).abs()) as usize
     }
 
@@ -79,6 +103,7 @@ impl PartialEq for Point {
     }
 }
 
+/*
 impl Hash for Point {
     fn hash<H>(&self, state: &mut H)
     where
@@ -89,3 +114,4 @@ impl Hash for Point {
         state.finish();
     }
 }
+*/
