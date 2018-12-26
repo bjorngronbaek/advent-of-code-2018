@@ -17,12 +17,11 @@ fn main() {
     let mut entries = aoc_helper::run(config).unwrap();
     let line = entries.pop().unwrap();    
     let ciphers = line.split(" ");
-    let vec = ciphers.collect::<Vec<&str>>();
+    let vec = ciphers.map(|x| x.parse::<usize>().unwrap()).collect::<Vec<usize>>();
 
-    let s = aoc08::split_into_nodes(vec);
-    println!("{}",s);
-}
+    println!("{:?}",vec);
 
-fn get_serial_sum(serial: &str) -> usize {
-    0
+    let (index,sum) = aoc08::sub(&vec,0);
+
+    println!("Final serial sum is: {}",sum);
 }
