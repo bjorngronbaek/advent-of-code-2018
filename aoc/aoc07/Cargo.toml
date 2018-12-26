@@ -1,0 +1,8 @@
+[package]
+name = "aoc07"
+version = "0.1.0"
+authors = ["bjorngronbaek <github@gronbaek.net>"]
+
+[dependencies]
+aoc-helper = { path = "../aoc-helper" }
+regex = "1"

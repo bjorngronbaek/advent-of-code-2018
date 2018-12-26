@@ -3,5 +3,7 @@
 members = [
     "aoc",
     "aoc06",
+    "aoc07",
+    "aoc08",
     "aoc-helper",
 ]
