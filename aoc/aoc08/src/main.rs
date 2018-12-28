@@ -21,7 +21,8 @@ fn main() {
 
     println!("{:?}",vec);
 
-    let (index,sum) = aoc08::sub(&vec,0);
+    let nodevalue = aoc08::sub(&vec,0);
 
-    println!("Final serial sum is: {}",sum);
+    println!("Final serial sum is: {}",nodevalue.newsum);
+    println!("Final value is: {}",nodevalue.newvalue);
 }

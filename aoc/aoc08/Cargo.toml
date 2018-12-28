@@ -5,3 +5,4 @@ authors = ["bjorngronbaek <github@gronbaek.net>"]
 
 [dependencies]
 aoc-helper = { path = "../aoc-helper" }
+log = { version = "0.4", features = ["max_level_debug", "release_max_level_warn"] }
